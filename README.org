@@ -1,0 +1,14 @@
+#+TITLE: Org-Pomodoro Third time
+
+This package adapts the [[ https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]] package to implement work and break
+intervals from the [[https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work][Third Time system]]. See package commentary for details.
+
+* Installation
+
+1. Clone this directory to somewhere on ~load-path~.
+2. ~(require 'org-pomodoro-third-time)~
+3. Run ~(org-pomodoro-third-time-mode +1)~ to enable,
+   or ~M-x org-pomodoro-third-time-mode~ to toggle.
+
+If you would like to disable this mode, run ~(org-pomodoro-third-time-mode
+nil)~.
