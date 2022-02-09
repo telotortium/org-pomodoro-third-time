@@ -95,7 +95,7 @@ This resets the bank."
   ;; count.
   (setq org-pomodoro-count -1)
   ;; Set the end time to now to immediately end the current Pomodoro.
-  (org-pomodoro-end-in 0))
+  (org-pomodoro-third-time-end-in 0))
 
 ;;;###autoload
 (defun org-pomodoro-third-time-end-in (minutes)
