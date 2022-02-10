@@ -42,7 +42,8 @@ nil)~.
    the default of ~org-pomodoro~).
 2. Start a Pomodoro with ~M-x org-pomodoro~.
 3. If you’d like to change your current Pomodoro’s length, either to shorten it
-   because you’re struggling to focus or are interrupted, change it with ~M-x
+   because you’re struggling to focus or are interrupted, or to lengthen it
+   because you’re really in the zone, change it with ~M-x
    org-pomodoro-third-time-end-in~. This prompts you for a number of minutes in
    the future from now (by default, 10) when the Pomodoro should end.
 
