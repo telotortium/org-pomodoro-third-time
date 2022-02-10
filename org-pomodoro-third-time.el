@@ -4,7 +4,7 @@
 ;; URL: https://github.com/telotortium/org-pomodoro-third-time
 ;; Created: Feb 8, 2022
 ;; Version: 0.1
-;; Package-Requires ((org-pomodoro) (emacs "26"))
+;; Package-Requires: ((org-pomodoro "2.1.0") (emacs "26"))
 
 ;;; Commentary:
 
