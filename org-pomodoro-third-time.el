@@ -4,7 +4,7 @@
 ;; URL: https://github.com/telotortium/org-pomodoro-third-time
 ;; Created: Feb 8, 2022
 ;; Version: 0.1
-;; Package-Requires ((org-pomodoro) (emacs "26"))
+;; Package-Requires: ((emacs "24.4") (org-pomodoro "2.1.0"))
 
 ;;; Commentary:
 
@@ -83,13 +83,15 @@ after changing the end time. Modify this using ‘add-hook’ and ‘remove-hook
 ;;; Interactive commands
 
 ;;;###autoload
-(defun org-pomodoro-third-time-long-break ()
-  "Start a long break immediately.
-
+(defun org-pomodoro-third-time-long-break (minutes)
+  "Start a long break immediately for MINUTES minutes.
 This resets the bank."
-  (interactive)
+  (interactive
+   (list
+    (read-number "Minutes for break: " org-pomodoro-long-break-length)))
   ;; Set Pomodoro state to :pomodoro so that ‘org-pomodoro-finished-hook’ is
   ;; run.
+  (setq org-pomodoro-long-break-length minutes)
   (org-pomodoro-set :pomodoro)
   ;; Ensure ‘org-pomodoro-finished’ triggers a long break by manipulating the
   ;; count.
