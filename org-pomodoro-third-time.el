@@ -68,6 +68,11 @@ the resulting break time is above or below this minimum."
   :group 'org-pomodoro-third-time
   :type 'float)
 
+(defcustom org-pomodoro-third-time-end-in-default 10
+  "Default to use when calling ‘org-pomodoro-third-time-end-in' interactively."
+  :group 'org-pomodoro-third-time
+  :type 'float)
+
 (defvar org-pomodoro-third-time-long-break-hook nil
   "Hooks run by ‘org-pomodoro-third-time-long-break’ before starting \
 a long break.
@@ -101,13 +106,27 @@ This resets the bank."
 
 ;;;###autoload
 (defun org-pomodoro-third-time-end-in (minutes)
-  "Force the current Pomodoro (or break) to end in MINUTES minutes."
-  (interactive "nMinutes: ")
+  "Force the current Pomodoro (or break) to end in MINUTES minutes.
+
+If called interactively, prompt for MINUTES, with the default suggestion given
+by ‘org-pomodoro-third-time-end-in-default'.
+
+To end the Pomodoro immediately, call ‘org-pomodoro-third-time-end-now'."
+  (interactive
+   (list
+    (read-number "End in how many minutes?: "
+                 org-pomodoro-third-time-end-in-default)))
   (unless (org-pomodoro-active-p)
     (org-pomodoro))
   (setq org-pomodoro-end-time
-   (time-add (current-time) (* minutes 60)))
+        (time-add (current-time) (* minutes 60)))
   (run-hooks 'org-pomodoro-third-time-modify-end-time-hook))
+
+;;;###autoload
+(defun org-pomodoro-third-time-end-now ()
+  "Force the current Pomodoro (or break) to end immediately."
+  (interactive)
+  (org-pomodoro-third-time-end-in 0))
 
 ;;;###autoload
 (defun org-pomodoro-third-time-end-at ()
