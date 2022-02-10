@@ -3,7 +3,7 @@
 ;; Author: Robert Irelan <rirelan@gmail.com>
 ;; URL: https://github.com/telotortium/org-pomodoro-third-time
 ;; Created: Feb 8, 2022
-;; Version: 0.2.0
+;; Version: 0.2.1
 ;; Package-Requires: ((emacs "24.4") (org-pomodoro "2.1.0"))
 
 ;;; Commentary:
@@ -126,7 +126,11 @@ To end the Pomodoro immediately, call ‘org-pomodoro-third-time-end-now'."
 (defun org-pomodoro-third-time-end-now ()
   "Force the current Pomodoro (or break) to end immediately."
   (interactive)
-  (org-pomodoro-third-time-end-in 0))
+  (org-pomodoro-third-time-end-in 0)
+  ;; Little extra work needed to end Pomodoro overtime
+  (when org-pomodoro-manual-break
+    (org-pomodoro-tick)                 ; Move to :overtime state
+    (org-pomodoro)))                    ; End overtime Pomodoro
 
 ;;;###autoload
 (defun org-pomodoro-third-time-end-at ()
