@@ -1,14 +1,100 @@
 #+TITLE: Org-Pomodoro Third time
-
 This package adapts the [[ https://github.com/marcinkoziej/org-pomodoro][org-pomodoro]] package to implement work and break
-intervals from the [[https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work][Third Time system]]. See package commentary for details.
+intervals from the [[https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work][Third Time system]].
 
 * Installation
+:PROPERTIES:
+:CUSTOM_ID: installation
+:END:
+
+If you're using ~use-package~, just add this line to =~/.emacs.d/init.el=:
+
+#+begin_src emacs-lisp
+  (use-package org-pomodoro-third-time :ensure t
+               :straight (:repo "telotortium/org-pomodoro-third-time"
+                          :host github
+                          :type git))
+#+end_src
+
+Similarly, if you use Doom Emacs, add this line to =~/.doom.d/packages.el=:
+
+#+begin_src emacs-lisp
+  (package! org-pomodoro-third-time
+    :recipe (:host github :repo "telotortium/org-pomodoro-third-time"))
+#+end_src
+
+To install it manually:
 
 1. Clone this directory to somewhere on ~load-path~.
 2. ~(require 'org-pomodoro-third-time)~
-3. Run ~(org-pomodoro-third-time-mode +1)~ to enable,
+3. Run ~(org-pomodoro-third-time-mode +1)~ to enable (can also be put in =init.el=),
    or ~M-x org-pomodoro-third-time-mode~ to toggle.
 
 If you would like to disable this mode, run ~(org-pomodoro-third-time-mode
 nil)~.
+
+* Usage
+:PROPERTIES:
+:CUSTOM_ID: usage
+:END:
+
+1. Set ~org-pomodoro-length~ to your “default” Pomodoro length (25 minutes is
+   the default of ~org-pomodoro~).
+2. Start a Pomodoro with ~M-x org-pomodoro~.
+3. If you’d like to change your current Pomodoro’s length, either to shorten it
+   because you’re struggling to focus or are interrupted, change it with ~M-x
+   org-pomodoro-third-time-end-in~. This prompts you for a number of minutes in
+   the future from now (by default, 10) when the Pomodoro should end.
+
+   Alternatively, you can end it now with ~M-x org-pomodoro-third-time-end-now~
+   or at a timestamp in the future with ~M-x org-pomodoro-third-time-end-at~.
+4. When the current Pomodoro ends, a short break will be scheduled that is, by
+   default, 1/3 the length of the Pomodoro you just ran, no matter if you
+   changed its length. The default can be changed via the custom variable
+   ~org-pomodoro-third-time-break-to-work-ratio~.
+5. If you come back from the break early, you can use ~M-x
+   org-pomodoro-third-time-end-now~ to end the break early, and the time you
+   didn’t use for this break will be added to the break time bank for the next
+   break (see [[#break-time-bank][Break Time Bank]] below).
+6. If you want to take a lunch break or other long break, call
+   ~org-pomodoro-third-time-long-break~. This will prompt you for a break
+   length (by default ~org-pomodoro-long-break-length~) and then start the
+   break. The break time bank is emptied.
+7. When you’re no longer working for the day, kill the current Pomodoro
+   (using ~M-x org-pomodoro~). The bank will be emptied to be fresh for
+   tomorrow.
+
+** Break Time Bank
+:PROPERTIES:
+:CUSTOM_ID: break-time-bank
+:END:
+
+One core idea of the Third Time system is that, whenever you end a short break
+early, the rest of the break time [[https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work#Breaks][isn’t lost, just postponed]]. This package
+stores this extra break time in a “break time bank” in order to apply to future
+breaks.
+
+In general, whenever you start a Pomodoro after your first of the day (or first,
+after a long break) this package takes the difference between the start time of
+your short break and the start time of the next Pomodoro (i.e., when you call
+~M-x org-pomodoro~). If you started your next Pomodoro earlier than the allotted
+break time, time is added to the bank; if later, time is subtracted. The amount
+of time in the bank is then added to the break time calculated using
+~org-pomodoro-third-time-break-to-work-ratio~ to produce the next break’s
+length.
+
+If you end a break early, you get that much more time for your next break. If
+you end the break late, you get that much less time for your next break,
+except that the break time is adjusted to never be less than a certain
+threshold (by default, one minute).
+
+The break time bank is emptied whenever you take a long break or kill the
+current Pomodoro.
+
+* Configuration
+:PROPERTIES:
+:CUSTOM_ID: configuration
+:END:
+
+See the package commentary, or see the customization variables using
+~M-x customize-group~, ~org-pomodoro-third-time~.
