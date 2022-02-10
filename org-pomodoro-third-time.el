@@ -3,7 +3,7 @@
 ;; Author: Robert Irelan <rirelan@gmail.com>
 ;; URL: https://github.com/telotortium/org-pomodoro-third-time
 ;; Created: Feb 8, 2022
-;; Version: 0.1
+;; Version: 0.2.0
 ;; Package-Requires: ((emacs "24.4") (org-pomodoro "2.1.0"))
 
 ;;; Commentary:
