@@ -242,7 +242,11 @@ Argument STATE contains the STATE argument passed to ‘org-pomodoro-start’."
   "Configure ‘org-pomodoro’ to use the rules of Third Time.
 
 See https://www.lesswrong.com/posts/RWu8eZqbwgB9zaerh/third-time-a-better-way-to-work"
-  :lighter " 1/3tm"
+  :init-value nil
+  :group 'org-pomodoro-third-time
+  :global t
+  :require 'org-pomodoro-third-time
+  :lighter " ⅓tm"
   (cond (org-pomodoro-third-time-mode
          (message "Enabling third-time mode")
          ;; Store variables modified by this mode.
