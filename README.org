@@ -27,11 +27,11 @@ To install it manually:
 
 1. Clone this directory to somewhere on ~load-path~.
 2. ~(require 'org-pomodoro-third-time)~
-3. Run ~(org-pomodoro-third-time-mode +1)~ to enable (can also be put in =init.el=),
+3. Run ~(org-pomodoro-third-time-mode)~ to enable (can also be put in =init.el=),
    or ~M-x org-pomodoro-third-time-mode~ to toggle.
 
 If you would like to disable this mode, run ~(org-pomodoro-third-time-mode
-nil)~.
+-1)~.
 
 * Usage
 :PROPERTIES:
