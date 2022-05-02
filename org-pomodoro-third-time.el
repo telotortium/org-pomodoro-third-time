@@ -3,7 +3,7 @@
 ;; Author: Robert Irelan <rirelan@gmail.com>
 ;; URL: https://github.com/telotortium/org-pomodoro-third-time
 ;; Created: Feb 8, 2022
-;; Version: 0.2.1
+;; Version: 0.2.3
 ;; Package-Requires: ((emacs "24.4") (org-pomodoro "2.1.0"))
 
 ;;; Commentary:
@@ -219,12 +219,12 @@ Argument STATE contains the STATE argument passed to ‘org-pomodoro-start’."
                             org-pomodoro-third-time--start-time)))
            (delta
             (- org-pomodoro-third-time--expected-break-time actual-break-time)))
-      (message "actual-break-time %S delta %S" actual-break-time delta)
+      (message "actual-break-time %.3f delta %.3f" actual-break-time delta)
       (setq org-pomodoro-third-time--bank-seconds
             (+ org-pomodoro-third-time--bank-seconds delta))
-      (message "bank seconds %S" org-pomodoro-third-time--bank-seconds)
+      (message "bank seconds %.3f" org-pomodoro-third-time--bank-seconds)
       (setq org-pomodoro-third-time--expected-break-time nil)))
-  (message "bank seconds %S" org-pomodoro-third-time--bank-seconds)
+  (message "bank seconds %.3f" org-pomodoro-third-time--bank-seconds)
   (funcall fn state))
 
 (defun org-pomodoro-third-time--reset-bank ()
